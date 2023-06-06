@@ -52,14 +52,15 @@
 <div id="content">
 
 <h1>Module <code>vis</code></h1>
-<p>Lua Extension API for the <a href="https://github.com/martanne/vis">Vis Editor</a>.</p>
-<p> <em>WARNING:</em> there is no stability guarantee at this time, the API might
- change without notice!</p>
-
-<p> This document might be out of date, run <code>make luadoc</code> to regenerate it.</p>
+<p>Lua Extension API for the [Vis Editor](https://github.com/martanne/vis).</p>
+<p>
+<p> *WARNING:* there is no stability guarantee at this time, the API might
+ change without notice!
+<p> This document might be out of date, run `make luadoc` to regenerate it.
+</p>
     <h3>Info:</h3>
     <ul>
-        <li><strong>Release</strong>: v0.4</li>
+        <li><strong>Release</strong>: 7221065</li>
         <li><strong>License</strong>: ISC</li>
         <li><strong>Author</strong>: Marc André Tanner</li>
     </ul>
@@ -80,12 +81,20 @@
 	<td class="summary">Events.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#Vis.input_queue">Vis.input_queue</a></td>
+	<td class="summary">Currently unconsumed keys in the input queue.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#Vis.lexers">Vis.lexers</a></td>
 	<td class="summary">Scintillua lexer module.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Vis.lpeg">Vis.lpeg</a></td>
 	<td class="summary">LPeg lexer module.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Vis.mark">Vis.mark</a></td>
+	<td class="summary">Mark name in use.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Vis.mode">Vis.mode</a></td>
@@ -98,6 +107,10 @@
 	<tr>
 	<td class="name" nowrap><a href="#Vis.recording">Vis.recording</a></td>
 	<td class="summary">Whether a macro is being recorded.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Vis.register">Vis.register</a></td>
+	<td class="summary">Register name in use.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Vis.registers">Vis.registers</a></td>
@@ -117,11 +130,11 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Vis:command">Vis:command(command)</a></td>
-	<td class="summary">Execute a <code>:</code>-command.</td>
+	<td class="summary">Execute a `:`-command.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Vis:command_register">Vis:command_register(name, command[, help])</a></td>
-	<td class="summary">Register a custom <code>:</code>-command.</td>
+	<td class="summary">Register a custom `:`-command.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Vis:exit">Vis:exit(code)</a></td>
@@ -181,15 +194,19 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Vis:option_register">Vis:option_register(name, type, handler[, help])</a></td>
-	<td class="summary">Register a custom <code>:set</code> option.</td>
+	<td class="summary">Register a custom `:set` option.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Vis:option_unregister">Vis:option_unregister(name)</a></td>
-	<td class="summary">Unregister a <code>:set</code> option.</td>
+	<td class="summary">Unregister a `:set` option.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Vis:pipe">Vis:pipe(file, range, command)</a></td>
 	<td class="summary">Pipe file range to external process and collect output.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Vis:redraw">Vis:redraw()</a></td>
+	<td class="summary">Redraw complete user interface.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Vis:register_names">Vis:register_names()</a></td>
@@ -247,6 +264,10 @@
 	<td class="summary">The window width.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#Window:close">Window:close(force)</a></td>
+	<td class="summary">Close window.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#Window:draw">Window:draw()</a></td>
 	<td class="summary">Redraw window content.</td>
 	</tr>
@@ -267,7 +288,7 @@
 	<td class="summary">Set window status line.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Window:style">Window:style(id, start, len)</a></td>
+	<td class="name" nowrap><a href="#Window:style">Window:style(id, start, finish)</a></td>
 	<td class="summary">Style a window range.</td>
 	</tr>
 	<tr>
@@ -306,6 +327,10 @@
 	<td class="summary">The range covered by this selection.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#Selection:remove">Selection:remove()</a></td>
+	<td class="summary">Remove selection.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#Selection:to">Selection:to(line, col)</a></td>
 	<td class="summary">Move cursor of selection.</td>
 	</tr>
@@ -327,6 +352,10 @@
 	<tr>
 	<td class="name" nowrap><a href="#File.path">File.path</a></td>
 	<td class="summary">File path.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#File.permission">File.permission</a></td>
+	<td class="summary">File permission.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#File.size">File.size</a></td>
@@ -369,6 +398,10 @@
 	<td class="summary">Check whether LPeg pattern matches at a given file position.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#File:text_object_longword">File:text_object_longword(pos)</a></td>
+	<td class="summary">WORD text object.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#File:text_object_word">File:text_object_word(pos)</a></td>
 	<td class="summary">Word text object.</td>
 	</tr>
@@ -388,7 +421,7 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Range.start">Range.start</a></td>
-	<td class="summary">The being of the range.</td>
+	<td class="summary">The beginning of the range.</td>
 	</tr>
 </table>
 <h2><a href="#Modes">Modes </a></h2>
@@ -438,6 +471,10 @@
 	<tr>
 	<td class="name" nowrap><a href="#start">start()</a></td>
 	<td class="summary">Editor startup completed.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#term_csi">term_csi(List)</a></td>
+	<td class="summary">CSI command received from terminal.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#win_close">win_close(win)</a></td>
@@ -497,7 +534,8 @@
     <ul>
         <li><span class="parameter">VERSION</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         version information in <code>git describe</code> format, same as reported by <code>vis -v</code>.
+
+ version information in `git describe` format, same as reported by `vis -v`.
         </li>
     </ul>
 
@@ -517,7 +555,7 @@
     <ul>
         <li><span class="parameter">count</span>
             <span class="types"><span class="type">int</span></span>
-         the specified count for the current command or <code>nil</code> if none was given
+         the specified count for the current command or `nil` if none was given
         </li>
     </ul>
 
@@ -538,7 +576,25 @@
         <li><span class="parameter">events</span>
             <span class="types"><a class="type" href="index.html#events">events</a></span>
 
+        </li>
+    </ul>
 
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Vis.input_queue"></a>
+    <strong>Vis.input_queue</strong>
+    </dt>
+    <dd>
+    Currently unconsumed keys in the input queue.
+
+
+    <ul>
+        <li><span class="parameter">input_queue</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
 
         </li>
     </ul>
@@ -558,7 +614,7 @@
 
     <ul>
         <li><span class="parameter">lexers</span>
-         might be <code>nil</code> if module is not found
+         might be `nil` if module is not found
         </li>
     </ul>
 
@@ -577,7 +633,27 @@
 
     <ul>
         <li><span class="parameter">lpeg</span>
-         might be <code>nil</code> if module is not found
+         might be `nil` if module is not found
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Vis.mark"></a>
+    <strong>Vis.mark</strong>
+    </dt>
+    <dd>
+    Mark name in use.
+
+
+    <ul>
+        <li><span class="parameter">mark</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
         </li>
     </ul>
 
@@ -597,8 +673,6 @@
     <ul>
         <li><span class="parameter">mode</span>
             <span class="types"><a class="type" href="index.html#modes">modes</a></span>
-
-
 
         </li>
     </ul>
@@ -620,8 +694,6 @@
         <li><span class="parameter">modes</span>
             <span class="types"><a class="type" href="index.html#modes">modes</a></span>
 
-
-
         </li>
     </ul>
 
@@ -642,7 +714,25 @@
         <li><span class="parameter">recording</span>
             <span class="types"><span class="type">bool</span></span>
 
+        </li>
+    </ul>
 
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Vis.register"></a>
+    <strong>Vis.register</strong>
+    </dt>
+    <dd>
+    Register name in use.
+
+
+    <ul>
+        <li><span class="parameter">register</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
 
         </li>
     </ul>
@@ -703,8 +793,6 @@
         <li><span class="parameter">win</span>
             <span class="types"><a class="type" href="index.html#Class_Window">Window</a></span>
 
-
-
         </li>
     </ul>
 
@@ -729,7 +817,7 @@
     <ul>
         <li><span class="parameter">name</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         the name of the action, can be referred to in key bindings as <code>&lt;name&gt;</code> pseudo key
+         the name of the action, can be referred to in key bindings as `<name>` pseudo key
         </li>
         <li><span class="parameter">func</span>
             <span class="types"><span class="type">Function</span></span>
@@ -737,7 +825,7 @@
         </li>
         <li><span class="parameter">help</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         the single line help text as displayed in <code>:help</code>
+         the single line help text as displayed in `:help`
          (<em>optional</em>)
         </li>
     </ul>
@@ -763,7 +851,7 @@
     <strong>Vis:command(command)</strong>
     </dt>
     <dd>
-    Execute a <code>:</code>-command.
+    Execute a `:`-command.
 
 
     <h3>Parameters:</h3>
@@ -794,7 +882,7 @@
     <strong>Vis:command_register(name, command[, help])</strong>
     </dt>
     <dd>
-    Register a custom <code>:</code>-command.
+    Register a custom `:`-command.
 
 
     <h3>Parameters:</h3>
@@ -809,7 +897,7 @@
         </li>
         <li><span class="parameter">help</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         the single line help text as displayed in <code>:help</code>
+         the single line help text as displayed in `:help`
          (<em>optional</em>)
         </li>
     </ul>
@@ -843,14 +931,13 @@
     <strong>Vis:exit(code)</strong>
     </dt>
     <dd>
-    Terminate editor process. </p>
-
+    Terminate editor process.
 <p> Termination happens upon the next iteration of the main event loop.
  This means the calling Lua code will be executed further until it
  eventually hands over control to the editor core. The exit status
- of the most recent call is used.</p>
+ of the most recent call is used.
+<p> All unsaved changes will be lost!
 
-<p> All unsaved chanes will be lost!
 
 
     <h3>Parameters:</h3>
@@ -871,9 +958,9 @@
     <strong>Vis:feedkeys(keys)</strong>
     </dt>
     <dd>
-    Push keys to input queue and interpret them. </p>
-
+    Push keys to input queue and interpret them.
 <p> The keys are processed as if they were read from the keyboard.
+
 
 
     <h3>Parameters:</h3>
@@ -919,10 +1006,10 @@
     <strong>Vis:info(message)</strong>
     </dt>
     <dd>
-    Display a short message. </p>
-
+    Display a short message.
 <p> The single line message will be displayed at the bottom of
- the scren and automatically hidden once a key is pressed.
+ the screen and automatically hidden once a key is pressed.
+
 
 
     <h3>Parameters:</h3>
@@ -943,11 +1030,11 @@
     <strong>Vis:insert(keys)</strong>
     </dt>
     <dd>
-    Insert keys at all cursor positions of active window. </p>
-
+    Insert keys at all cursor positions of active window.
 <p> This function behaves as if the keys were entered in insert mode,
  but in contrast to <a href="index.html#Vis:feedkeys">Vis:feedkeys</a> it bypasses the input queue,
  meaning mappings do not apply and the keys will not be recorded in macros.
+
 
 
     <h3>Parameters:</h3>
@@ -972,10 +1059,8 @@
     <strong>Vis:map(mode, key, alias)</strong>
     </dt>
     <dd>
-    Setup a key alias. </p>
-
-<p> This is equivalent to <code>vis:command(&apos;map! mode key alias&apos;)</code>.</p>
-
+    Setup a key alias.
+<p> This is equivalent to `vis:command('map! mode key alias')`.
 <p> Mappings are always recursive!
 
 
@@ -1065,9 +1150,9 @@ vis:map(vis.modes.NORMAL, <span class="string">"gl"</span>, action)</pre>
     <strong>Vis:map(mode, key, func[, help])</strong>
     </dt>
     <dd>
-    Map a key to a Lua function. </p>
-
+    Map a key to a Lua function.
 <p> Creates a new key mapping in a given mode.
+
 
 
     <h3>Parameters:</h3>
@@ -1086,7 +1171,7 @@ vis:map(vis.modes.NORMAL, <span class="string">"gl"</span>, action)</pre>
         </li>
         <li><span class="parameter">help</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         the single line help text as displayed in <code>:help</code>
+         the single line help text as displayed in `:help`
          (<em>optional</em>)
         </li>
     </ul>
@@ -1178,10 +1263,10 @@ vis:map(vis.modes.NORMAL, <span class="string">"gl"</span>, action)</pre>
     <ul>
         <pre class="example"><span class="keyword">local</span> marks = vis.win.marks
 <span class="keyword">for</span> name <span class="keyword">in</span> vis:mark_names() <span class="keyword">do</span>
-<span class="keyword">local</span> mark = marks[name]
-<span class="keyword">for</span> i = <span class="number">1</span>, #mark <span class="keyword">do</span>
-		<span class="comment">-- do somthing with: name, mark[i].start, mark[i].finish
-</span><span class="keyword">end</span>
+	<span class="keyword">local</span> mark = marks[name]
+	<span class="keyword">for</span> i = <span class="number">1</span>, #mark <span class="keyword">do</span>
+		<span class="comment">-- do something with: name, mark[i].start, mark[i].finish
+</span>	<span class="keyword">end</span>
 <span class="keyword">end</span></pre>
     </ul>
 
@@ -1191,9 +1276,9 @@ vis:map(vis.modes.NORMAL, <span class="string">"gl"</span>, action)</pre>
     <strong>Vis:message(message)</strong>
     </dt>
     <dd>
-    Display a multi line message. </p>
-
+    Display a multi line message.
 <p> Opens a new window and displays an arbitrarily long message.
+
 
 
     <h3>Parameters:</h3>
@@ -1241,8 +1326,7 @@ vis:map(vis.modes.NORMAL, <span class="string">"gl"</span>, action)</pre>
     <strong>Vis:motion_new(key, motion[, help])</strong>
     </dt>
     <dd>
-    Map a new motion. </p>
-
+    Map a new motion.
 <p> Sets up a mapping in normal, visual and operator pending mode.
  The motion function will receive the <a href="index.html#Class_Window">Window</a> and an initial position
  (in bytes from the start of the file) as argument and is expected to
@@ -1253,7 +1337,7 @@ vis:map(vis.modes.NORMAL, <span class="string">"gl"</span>, action)</pre>
     <ul>
         <li><span class="parameter">key</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         the key to associate with the new mption
+         the key to associate with the new option
         </li>
         <li><span class="parameter">motion</span>
             <span class="types"><span class="type">function</span></span>
@@ -1261,7 +1345,7 @@ vis:map(vis.modes.NORMAL, <span class="string">"gl"</span>, action)</pre>
         </li>
         <li><span class="parameter">help</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         the single line help text as displayed in <code>:help</code>
+         the single line help text as displayed in `:help`
          (<em>optional</em>)
         </li>
     </ul>
@@ -1288,11 +1372,11 @@ vis:map(vis.modes.NORMAL, <span class="string">"gl"</span>, action)</pre>
     <strong>Vis:operator_new(key, operator[, help])</strong>
     </dt>
     <dd>
-    Map a new operator. </p>
-
+    Map a new operator.
 <p> Sets up a mapping in normal, visual and operator pending mode.
  The operator function will receive the <a href="index.html#Class_File">File</a>, <a href="index.html#Class_Range">Range</a> and position
  to operate on and is expected to return the new cursor position.
+
 
 
     <h3>Parameters:</h3>
@@ -1307,7 +1391,7 @@ vis:map(vis.modes.NORMAL, <span class="string">"gl"</span>, action)</pre>
         </li>
         <li><span class="parameter">help</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         the single line help text as displayed in <code>:help</code>
+         the single line help text as displayed in `:help`
          (<em>optional</em>)
         </li>
     </ul>
@@ -1325,14 +1409,14 @@ vis:map(vis.modes.NORMAL, <span class="string">"gl"</span>, action)</pre>
     <ul>
         <pre class="example">vis:operator_new(<span class="string">"gq"</span>, <span class="keyword">function</span>(file, range, pos)
 	<span class="keyword">local</span> status, out, err = vis:pipe(file, range, <span class="string">"fmt"</span>)
-	<span class="keyword">if</span> <span class="keyword">not</span> status <span class="keyword">then</span>
+	<span class="keyword">if</span> status ~= <span class="number">0</span> <span class="keyword">then</span>
 		vis:info(err)
 	<span class="keyword">else</span>
 		file:delete(range)
 		file:insert(range.start, out)
 	<span class="keyword">end</span>
 	<span class="keyword">return</span> range.start <span class="comment">-- new cursor location
-</span><span class="keyword">end</span>, <span class="string">"Formating operator, filter range through fmt(1)"</span>)</pre>
+</span><span class="keyword">end</span>, <span class="string">"Formatting operator, filter range through fmt(1)"</span>)</pre>
     </ul>
 
 </dd>
@@ -1341,7 +1425,7 @@ vis:map(vis.modes.NORMAL, <span class="string">"gl"</span>, action)</pre>
     <strong>Vis:option_register(name, type, handler[, help])</strong>
     </dt>
     <dd>
-    Register a custom <code>:set</code> option.
+    Register a custom `:set` option.
 
 
     <h3>Parameters:</h3>
@@ -1352,7 +1436,7 @@ vis:map(vis.modes.NORMAL, <span class="string">"gl"</span>, action)</pre>
         </li>
         <li><span class="parameter">type</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         the option type (<code>bool</code>, <a href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <a href="index.html#Selection.number">number</a>)
+         the option type (`bool`, `string` or `number`)
         </li>
         <li><span class="parameter">handler</span>
             <span class="types"><span class="type">function</span></span>
@@ -1360,7 +1444,7 @@ vis:map(vis.modes.NORMAL, <span class="string">"gl"</span>, action)</pre>
         </li>
         <li><span class="parameter">help</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         the single line help text as displayed in <code>:help</code>
+         the single line help text as displayed in `:help`
          (<em>optional</em>)
         </li>
     </ul>
@@ -1376,9 +1460,9 @@ vis:map(vis.modes.NORMAL, <span class="string">"gl"</span>, action)</pre>
 
     <h3>Usage:</h3>
     <ul>
-        <pre class="example">vis:option_register(<span class="string">"foo"</span>, <span class="string">"bool"</span>, <span class="keyword">function</span>(value, toogle)
+        <pre class="example">vis:option_register(<span class="string">"foo"</span>, <span class="string">"bool"</span>, <span class="keyword">function</span>(value, toggle)
 	<span class="keyword">if</span> <span class="keyword">not</span> vis.win <span class="keyword">then</span> <span class="keyword">return</span> <span class="keyword">false</span> <span class="keyword">end</span>
-	vis.win.foo = toogle <span class="keyword">and</span> <span class="keyword">not</span> vis.win.foo <span class="keyword">or</span> value
+	vis.win.foo = toggle <span class="keyword">and</span> <span class="keyword">not</span> vis.win.foo <span class="keyword">or</span> value
 	vis:info(<span class="string">"Option foo = "</span> .. <span class="global">tostring</span>(vis.win.foo))
 	<span class="keyword">return</span> <span class="keyword">true</span>
 <span class="keyword">end</span>, <span class="string">"Foo enables superpowers"</span>)</pre>
@@ -1390,7 +1474,7 @@ vis:map(vis.modes.NORMAL, <span class="string">"gl"</span>, action)</pre>
     <strong>Vis:option_unregister(name)</strong>
     </dt>
     <dd>
-    Unregister a <code>:set</code> option.
+    Unregister a `:set` option.
 
 
     <h3>Parameters:</h3>
@@ -1417,9 +1501,9 @@ vis:map(vis.modes.NORMAL, <span class="string">"gl"</span>, action)</pre>
     <strong>Vis:pipe(file, range, command)</strong>
     </dt>
     <dd>
-    Pipe file range to external process and collect output. </p>
-
+    Pipe file range to external process and collect output.
 <p> The editor core will be blocked while the external process is running.
+
 
 
     <h3>Parameters:</h3>
@@ -1450,6 +1534,22 @@ vis:map(vis.modes.NORMAL, <span class="string">"gl"</span>, action)</pre>
            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         stderr the data written to stderr</li>
     </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Vis:redraw"></a>
+    <strong>Vis:redraw()</strong>
+    </dt>
+    <dd>
+    Redraw complete user interface.
+<p> Will trigger redraw events, make sure to avoid recursive events.
+
+
+
+
 
 
 
@@ -1488,11 +1588,11 @@ vis:map(vis.modes.NORMAL, <span class="string">"gl"</span>, action)</pre>
     <strong>Vis:replace(keys)</strong>
     </dt>
     <dd>
-    Replace keys at all cursor positions of active window. </p>
-
+    Replace keys at all cursor positions of active window.
 <p> This function behaves as if the keys were entered in replace mode,
  but in contrast to <a href="index.html#Vis:feedkeys">Vis:feedkeys</a> it bypasses the input queue,
  meaning mappings do not apply and the keys will not be recorded in macros.
+
 
 
     <h3>Parameters:</h3>
@@ -1517,12 +1617,11 @@ vis:map(vis.modes.NORMAL, <span class="string">"gl"</span>, action)</pre>
     <strong>Vis:textobject_new(key, textobject[, help])</strong>
     </dt>
     <dd>
-    Map a new text object. </p>
-
+    Map a new text object.
 <p> Sets up a mapping in visual and operator pending mode.
  The text object function will receive the <a href="index.html#Class_Window">Window</a> and an initial
  position(in bytes from the start of the file) as argument and is
- expected to return the resulting range or <code>nil</code>.
+ expected to return the resulting range or `nil`.
 
 
     <h3>Parameters:</h3>
@@ -1537,7 +1636,7 @@ vis:map(vis.modes.NORMAL, <span class="string">"gl"</span>, action)</pre>
         </li>
         <li><span class="parameter">help</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         the single line help text as displayed in <code>:help</code>
+         the single line help text as displayed in `:help`
          (<em>optional</em>)
         </li>
     </ul>
@@ -1642,8 +1741,6 @@ vis:map(vis.modes.NORMAL, <span class="string">"gl"</span>, action)</pre>
         <li><span class="parameter">file</span>
             <span class="types"><a class="type" href="index.html#Class_File">File</a></span>
 
-
-
         </li>
     </ul>
 
@@ -1663,8 +1760,6 @@ vis:map(vis.modes.NORMAL, <span class="string">"gl"</span>, action)</pre>
     <ul>
         <li><span class="parameter">height</span>
             <span class="types"><span class="type">int</span></span>
-
-
 
         </li>
     </ul>
@@ -1710,8 +1805,6 @@ vis:map(vis.modes.NORMAL, <span class="string">"gl"</span>, action)</pre>
         <li><span class="parameter">selection</span>
             <span class="types"><a class="type" href="index.html#Class_Selection">Selection</a></span>
 
-
-
         </li>
     </ul>
 
@@ -1732,8 +1825,6 @@ vis:map(vis.modes.NORMAL, <span class="string">"gl"</span>, action)</pre>
         <li><span class="parameter">selections</span>
             <span class="types"><span class="type">Array(Selection)</span></span>
 
-
-
         </li>
     </ul>
 
@@ -1753,7 +1844,7 @@ vis:map(vis.modes.NORMAL, <span class="string">"gl"</span>, action)</pre>
     <ul>
         <li><span class="parameter">syntax</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         the syntax lexer name or <code>nil</code> if unset
+         the syntax lexer name or `nil` if unset
         </li>
     </ul>
 
@@ -1773,8 +1864,6 @@ vis:map(vis.modes.NORMAL, <span class="string">"gl"</span>, action)</pre>
     <ul>
         <li><span class="parameter">viewport</span>
             <span class="types"><a class="type" href="index.html#Class_Range">Range</a></span>
-
-
 
         </li>
     </ul>
@@ -1796,13 +1885,46 @@ vis:map(vis.modes.NORMAL, <span class="string">"gl"</span>, action)</pre>
         <li><span class="parameter">width</span>
             <span class="types"><span class="type">int</span></span>
 
-
-
         </li>
     </ul>
 
 
 
+
+
+</dd>
+    <dt>
+    <a name = "Window:close"></a>
+    <strong>Window:close(force)</strong>
+    </dt>
+    <dd>
+    Close window.
+<p> After a successful call the Window reference becomes invalid and
+ must no longer be used. Attempting to close the last window will
+ always fail.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">force</span>
+            <span class="types"><span class="type">bool</span></span>
+         whether unsaved changes should be discarded
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        whether the window was closed
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="index.html#Vis:exit">exit</a>
+    </ul>
 
 
 </dd>
@@ -1832,8 +1954,6 @@ vis:map(vis.modes.NORMAL, <span class="string">"gl"</span>, action)</pre>
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">...</span>
-
-
 
         </li>
     </ul>
@@ -1878,7 +1998,7 @@ vis:map(vis.modes.NORMAL, <span class="string">"gl"</span>, action)</pre>
     <ul>
         <li><span class="parameter">syntax</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         the syntax lexer name or <code>nil</code> to disable syntax highlighting
+         the syntax lexer name or `nil` to disable syntax highlighting
         </li>
     </ul>
 
@@ -1921,11 +2041,10 @@ vis:map(vis.modes.NORMAL, <span class="string">"gl"</span>, action)</pre>
 </dd>
     <dt>
     <a name = "Window:style"></a>
-    <strong>Window:style(id, start, len)</strong>
+    <strong>Window:style(id, start, finish)</strong>
     </dt>
     <dd>
-    Style a window range. </p>
-
+    Style a window range.
 <p> The style will be cleared after every window redraw.
 
 
@@ -1939,9 +2058,9 @@ vis:map(vis.modes.NORMAL, <span class="string">"gl"</span>, action)</pre>
             <span class="types"><span class="type">int</span></span>
          the absolute file position in bytes
         </li>
-        <li><span class="parameter">len</span>
+        <li><span class="parameter">finish</span>
             <span class="types"><span class="type">int</span></span>
-         the length in bytes to style
+         the end position
         </li>
     </ul>
 
@@ -2011,8 +2130,6 @@ vis:map(vis.modes.NORMAL, <span class="string">"gl"</span>, action)</pre>
     <ul>
         <li><span class="parameter">...</span>
 
-
-
         </li>
     </ul>
 
@@ -2029,67 +2146,49 @@ vis:map(vis.modes.NORMAL, <span class="string">"gl"</span>, action)</pre>
     <h2 class="section-header has-description"><a name="Class_Selection"></a>Class Selection </h2>
 
           <div class="section-description">
-          A selection object. </p>
-
+          A selection object.
 <p> A selection is a non-empty, directed range with two endpoints called
- <em>cursor</em> and <em>anchor</em>. A selection can be anchored in which case
+ *cursor* and *anchor*. A selection can be anchored in which case
  the anchor remains fixed while only the position of the cursor is
  adjusted. For non-anchored selections both endpoints are updated. A
  singleton selection covers one character on which both cursor and
  anchor reside. There always exists a primary selection which remains
- visible (i.e. changes to its position will adjust the viewport).</p>
-
+ visible (i.e. changes to its position will adjust the viewport).
 <p> The range covered by a selection is represented as an interval whose
  endpoints are absolute byte offsets from the start of the file.
- Valid addresses are within the closed interval <code>[0, file.size]</code>.</p>
-
+ Valid addresses are within the closed interval `[0, file.size]`.
 <p> Selections are currently implemented using character marks into
  the underlying persistent
- <a href="https://github.com/martanne/vis/wiki/Text-management-using-a-piece-chain">text management data structure</a>.</p>
-
-<p> This has a few consequences you should be aware of:</p>
-
-<ul>
-    <li><p>A selection becomes invalid when the delimiting boundaries of the underlying
-text it is referencing is deleted:</p>
-
-<pre><code>-- leaves selection in an invalid state
-win.file:delete(win.selection.pos, 1)
-assert(win.selection.pos == nil)
-</code></pre>
-
-<p>Like a regular mark it will become valid again when the text is reverted
-to the state before the deletion.</p></li>
-    <li><p>Inserts after the selection position (<code>&gt; selection.pos</code>) will not affect the
-selection postion.</p>
-
-<pre><code>local pos = win.selection.pos
-win.file:insert(pos+1, "-")
-assert(win.selection.pos == pos)
-</code></pre></li>
-    <li><p>Non-cached inserts before the selection position (<code>&lt;= selection.pos</code>) will
-affect the mark and adjust the selection postion by the number of bytes
-which were inserted.</p>
-
-<pre><code>local pos = win.selection.pos
-win.file:insert(pos, "-")
-assert(win.selection.pos == pos+1)
-</code></pre></li>
-    <li><p>Cached inserts before the selection position (<code>&lt;= selection.pos</code>) will
+ [text management data structure](https://github.com/martanne/vis/wiki/Text-management-using-a-piece-chain).
+<p> This has a few consequences you should be aware of:
+<p>  - A selection becomes invalid when the delimiting boundaries of the underlying
+    text it is referencing is deleted:
+<p>        -- leaves selection in an invalid state
+        win.file:delete(win.selection.pos, 1)
+        assert(win.selection.pos == nil)
+<p>    Like a regular mark it will become valid again when the text is reverted
+    to the state before the deletion.
+<p>  - Inserts after the selection position (`> selection.pos`) will not affect the
+    selection position.
+<p>        local pos = win.selection.pos
+        win.file:insert(pos+1, "-")
+        assert(win.selection.pos == pos)
+<p>  - Non-cached inserts before the selection position (`<= selection.pos`) will
+    affect the mark and adjust the selection position by the number of bytes
+    which were inserted.
+<p>        local pos = win.selection.pos
+        win.file:insert(pos, "-")
+        assert(win.selection.pos == pos+1)
+<p>  - Cached inserts before the selection position (`<= selection.pos`) will
     not affect the selection position because the underlying text is replaced
-    inplace.</p></li>
-</ul>
-
+    inplace.
 <p> For these reasons it is generally recommended to update the selection position
- after a modification. The general procedure amounts to:</p>
-
-<ol>
-    <li>Read out the current selection position</li>
-    <li>Perform text modifications</li>
-    <li>Update the selection postion</li>
-</ol>
-
+ after a modification. The general procedure amounts to:
+<p> 1. Read out the current selection position
+ 2. Perform text modifications
+ 3. Update the selection position
 <p> This is what <a href="index.html#Vis:insert">Vis:insert</a> and <a href="index.html#Vis:replace">Vis:replace</a> do internally.
+
           </div>
             <h3>Usage:</h3>
             <pre class="example"><span class="keyword">local</span> data = <span class="string">"new text"</span>
@@ -2108,8 +2207,6 @@ win.selection.pos = pos + #data</pre>
     <ul>
         <li><span class="parameter">anchored</span>
             <span class="types"><span class="type">bool</span></span>
-
-
 
         </li>
     </ul>
@@ -2130,8 +2227,6 @@ win.selection.pos = pos + #data</pre>
     <ul>
         <li><span class="parameter">col</span>
             <span class="types"><span class="type">int</span></span>
-
-
 
         </li>
     </ul>
@@ -2157,8 +2252,6 @@ win.selection.pos = pos + #data</pre>
         <li><span class="parameter">line</span>
             <span class="types"><span class="type">int</span></span>
 
-
-
         </li>
     </ul>
 
@@ -2183,8 +2276,6 @@ win.selection.pos = pos + #data</pre>
         <li><span class="parameter">number</span>
             <span class="types"><span class="type">int</span></span>
 
-
-
         </li>
     </ul>
 
@@ -2198,9 +2289,8 @@ win.selection.pos = pos + #data</pre>
     <strong>Selection.pos</strong>
     </dt>
     <dd>
-    The zero based byte position in the file. </p>
-
-<p> Might be <code>nil</code> if the selection is in an invalid state.
+    The zero based byte position in the file.
+<p> Might be `nil` if the selection is in an invalid state.
  Setting this field will move the cursor endpoint of the
  selection to the given position.
 
@@ -2208,8 +2298,6 @@ win.selection.pos = pos + #data</pre>
     <ul>
         <li><span class="parameter">pos</span>
             <span class="types"><span class="type">int</span></span>
-
-
 
         </li>
     </ul>
@@ -2231,10 +2319,22 @@ win.selection.pos = pos + #data</pre>
         <li><span class="parameter">range</span>
             <span class="types"><a class="type" href="index.html#Class_Range">Range</a></span>
 
-
-
         </li>
     </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Selection:remove"></a>
+    <strong>Selection:remove()</strong>
+    </dt>
+    <dd>
+    Remove selection.
+
+
 
 
 
@@ -2278,9 +2378,8 @@ win.selection.pos = pos + #data</pre>
     <strong>File.lines</strong>
     </dt>
     <dd>
-    File content by logical lines. </p>
-
-<p> Assigning to array element <code>0</code> (<code>#lines+1</code>) will insert a new line at
+    File content by logical lines.
+<p> Assigning to array element `0` (`#lines+1`) will insert a new line at
  the beginning (end) of the file.
 
 
@@ -2338,7 +2437,7 @@ win.selection.pos = pos + #data</pre>
     <ul>
         <li><span class="parameter">name</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         the file name relative to current working directory or <code>nil</code> if not yet named
+         the file name relative to current working directory or `nil` if not yet named
         </li>
     </ul>
 
@@ -2358,7 +2457,27 @@ win.selection.pos = pos + #data</pre>
     <ul>
         <li><span class="parameter">path</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         the absolute file path or <code>nil</code> if not yet named
+         the absolute file path or `nil` if not yet named
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "File.permission"></a>
+    <strong>File.permission</strong>
+    </dt>
+    <dd>
+    File permission.
+
+
+    <ul>
+        <li><span class="parameter">permission</span>
+            <span class="types"><span class="type">int</span></span>
+         the file permission bits as of the most recent load/save
         </li>
     </ul>
 
@@ -2548,8 +2667,7 @@ win.selection.pos = pos + #data</pre>
     <strong>File:lines_iterator()</strong>
     </dt>
     <dd>
-    Create an iterator over all lines of the file. </p>
-
+    Create an iterator over all lines of the file.
 <p> For large files this is probably faster than <a href="index.html#File.lines">lines</a>.
 
 
@@ -2594,7 +2712,7 @@ win.selection.pos = pos + #data</pre>
     <ol>
 
            <span class="types"><span class="type">int</span></span>
-        pos the position of the mark, or <code>nil</code> if invalid
+        pos the position of the mark, or `nil` if invalid
     </ol>
 
 
@@ -2647,7 +2765,7 @@ win.selection.pos = pos + #data</pre>
         </li>
         <li><span class="parameter">horizon</span>
             <span class="types"><span class="type">int</span></span>
-         the number of bytes around <a href="index.html#Selection.pos">pos</a> to consider (defaults to 1K)
+         the number of bytes around `pos` to consider (defaults to 1K)
          (<em>optional</em>)
         </li>
     </ul>
@@ -2656,7 +2774,34 @@ win.selection.pos = pos + #data</pre>
     <ol>
 
            <span class="types"><span class="type">int</span></span>
-        start,end the range of the matched region or <code>nil</code>
+        start,end the range of the matched region or `nil`
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "File:text_object_longword"></a>
+    <strong>File:text_object_longword(pos)</strong>
+    </dt>
+    <dd>
+    WORD text object.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">pos</span>
+            <span class="types"><span class="type">int</span></span>
+         the position which must be part of the word
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="index.html#Class_Range">Range</a></span>
+        range the range
     </ol>
 
 
@@ -2709,8 +2854,6 @@ win.selection.pos = pos + #data</pre>
         <li><span class="parameter">colors</span>
             <span class="types"><span class="type">int</span></span>
 
-
-
         </li>
     </ul>
 
@@ -2723,10 +2866,9 @@ win.selection.pos = pos + #data</pre>
     <h2 class="section-header has-description"><a name="Class_Range"></a>Class Range </h2>
 
           <div class="section-description">
-          A file range. </p>
-
-<p> For a valid range <code>start &lt;= finish</code> holds.
- An invalid range is represented as <code>nil</code>.
+          A file range.
+<p> For a valid range `start <= finish` holds.
+ An invalid range is represented as `nil`.
           </div>
     <dl class="function">
     <dt>
@@ -2741,8 +2883,6 @@ win.selection.pos = pos + #data</pre>
         <li><span class="parameter">finish</span>
             <span class="types"><span class="type">int</span></span>
 
-
-
         </li>
     </ul>
 
@@ -2756,14 +2896,12 @@ win.selection.pos = pos + #data</pre>
     <strong>Range.start</strong>
     </dt>
     <dd>
-    The being of the range.
+    The beginning of the range.
 
 
     <ul>
         <li><span class="parameter">start</span>
             <span class="types"><span class="type">int</span></span>
-
-
 
         </li>
     </ul>
@@ -2790,37 +2928,25 @@ win.selection.pos = pos + #data</pre>
         <li><span class="parameter">NORMAL</span>
             <span class="types"><span class="type">int</span></span>
 
-
-
         </li>
         <li><span class="parameter">OPERATOR_PENDING</span>
             <span class="types"><span class="type">int</span></span>
-
-
 
         </li>
         <li><span class="parameter">INSERT</span>
             <span class="types"><span class="type">int</span></span>
 
-
-
         </li>
         <li><span class="parameter">REPLACE</span>
             <span class="types"><span class="type">int</span></span>
-
-
 
         </li>
         <li><span class="parameter">VISUAL</span>
             <span class="types"><span class="type">int</span></span>
 
-
-
         </li>
         <li><span class="parameter">VISUAL_LINE</span>
             <span class="types"><span class="type">int</span></span>
-
-
 
         </li>
     </ul>
@@ -2839,9 +2965,11 @@ win.selection.pos = pos + #data</pre>
     <h2 class="section-header has-description"><a name="Key_Handling"></a>Key Handling </h2>
 
           <div class="section-description">
-           This section describes the contract between the editor core and Lua
+
+<p> This section describes the contract between the editor core and Lua
  key handling functions mapped to symbolic keys using either <a href="index.html#Vis:map">Vis:map</a>
  or <a href="index.html#Window:map">Window:map</a>.
+
           </div>
     <dl class="function">
     <dt>
@@ -2849,18 +2977,17 @@ win.selection.pos = pos + #data</pre>
     <strong>keyhandler(keys)</strong>
     </dt>
     <dd>
-    Example of a key handling function. </p>
-
+    Example of a key handling function.
 <p> The keyhandler is invoked with the pending content of the input queue
  given as argument. This might be the empty string if no further input
- is available.</p>
-
-<p> The function is expected to return the number of <em>bytes</em> it has
+ is available.
+<p> The function is expected to return the number of *bytes* it has
  consumed from the passed input keys. A negative return value is
  interpreted as an indication that not enough input was available. The
  function will be called again once the user has provided more input. A
- missing return value (i.e. <code>nil</code>) is interpreted as zero, meaning
+ missing return value (i.e. `nil`) is interpreted as zero, meaning
  no further input was consumed but the function completed successfully.
+
 
 
     <h3>Parameters:</h3>
@@ -2875,7 +3002,7 @@ win.selection.pos = pos + #data</pre>
     <ol>
 
            <span class="types"><span class="type">int</span></span>
-        the number of <em>bytes</em> being consumed by the function (see above)
+        the number of *bytes* being consumed by the function (see above)
     </ol>
 
 
@@ -2905,10 +3032,12 @@ win.selection.pos = pos + #data</pre>
     <h2 class="section-header has-description"><a name="Core_Events"></a>Core Events </h2>
 
           <div class="section-description">
-           These events are invoked from the editor core.
+
+<p> These events are invoked from the editor core.
  The following functions are invoked if they are registered in the
- <a href="index.html#events">vis.events</a> table. Users scripts should generally use the <a href="#events">Events</a>
+ `vis.events` table. Users scripts should generally use the [Events](#events)
  mechanism instead which multiplexes these core events.
+
           </div>
     <dl class="function">
     <dt>
@@ -2960,7 +3089,7 @@ win.selection.pos = pos + #data</pre>
     </dt>
     <dd>
     File post save.
- Triggered <em>after</em> a successfull write operation.
+ Triggered *after* a successful write operation.
 
 
     <h3>Parameters:</h3>
@@ -2971,7 +3100,7 @@ win.selection.pos = pos + #data</pre>
         </li>
         <li><span class="parameter">path</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         the absolute path to which it was written, <code>nil</code> if standard output
+         the absolute path to which it was written, `nil` if standard output
         </li>
     </ul>
 
@@ -2986,7 +3115,7 @@ win.selection.pos = pos + #data</pre>
     </dt>
     <dd>
     File pre save.
- Triggered <em>before</em> the file is being written.
+ Triggered *before* the file is being written.
 
 
     <h3>Parameters:</h3>
@@ -2997,7 +3126,7 @@ win.selection.pos = pos + #data</pre>
         </li>
         <li><span class="parameter">path</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         the absolute path to which the file will be written, <code>nil</code> if standard output
+         the absolute path to which the file will be written, `nil` if standard output
         </li>
     </ul>
 
@@ -3018,11 +3147,10 @@ win.selection.pos = pos + #data</pre>
     </dt>
     <dd>
     Editor initialization completed.
- This event is emitted immediately after <code>visrc.lua</code> has been sourced, but
- before any other events have occured, in particular the command line arguments
- have not yet been processed.</p>
-
-<p> Can be used to set <em>global</em> configuration options.
+ This event is emitted immediately after `visrc.lua` has been sourced, but
+ before any other events have occurred, in particular the command line arguments
+ have not yet been processed.
+<p> Can be used to set *global* configuration options.
 
 
 
@@ -3044,8 +3172,6 @@ win.selection.pos = pos + #data</pre>
         <li><span class="parameter">key</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
 
-
-
         </li>
     </ul>
 
@@ -3053,7 +3179,7 @@ win.selection.pos = pos + #data</pre>
     <ol>
 
            <span class="types"><span class="type">bool</span></span>
-        whether the key was cosumed or not
+        whether the key was consumed or not
     </ol>
 
 
@@ -3085,6 +3211,26 @@ win.selection.pos = pos + #data</pre>
  We are about to process interactive keyboard input.
 
 
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "term_csi"></a>
+    <strong>term_csi(List)</strong>
+    </dt>
+    <dd>
+    CSI command received from terminal.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">List</span>
+         of CSI parameters
+        </li>
+    </ul>
 
 
 
@@ -3190,13 +3336,14 @@ win.selection.pos = pos + #data</pre>
     <h2 class="section-header has-description"><a name="Events"></a>Events </h2>
 
           <div class="section-description">
-           User scripts can subscribe Lua functions to certain events. Multiple functions
- can be associated with the same event. They will be called in the order they were
- registered. The first function which returns a non <code>nil</code> value terminates event
- propagation. The remaining event handler will not be called.</p>
 
+<p> User scripts can subscribe Lua functions to certain events. Multiple functions
+ can be associated with the same event. They will be called in the order they were
+ registered. The first function which returns a non `nil` value terminates event
+ propagation. The remaining event handler will not be called.
 <p> Keep in mind that the editor is blocked while the event handlers
  are being executed, avoid long running tasks.
+
           </div>
     <dl class="function">
     <dt>
@@ -3245,6 +3392,9 @@ win.selection.pos = pos + #data</pre>
         <li><span class="parameter">WIN_STATUS</span>
         see <a href="index.html#win_status">win_status</a>
         </li>
+        <li><span class="parameter">TERM_CSI</span>
+        see <a href="index.html#term_csi">term_csi</a>
+        </li>
     </ul>
 
 
@@ -3257,11 +3407,11 @@ win.selection.pos = pos + #data</pre>
     <strong>events.emit(event, ...)</strong>
     </dt>
     <dd>
-    Generate event. </p>
-
+    Generate event.
 <p> Invokes all event handlers in the order they were registered.
- Passes all arguments to the handler. The first handler which returns a non <code>nil</code>
+ Passes all arguments to the handler. The first handler which returns a non `nil`
  value terminates the event propagation. The other handlers will not be called.
+
 
 
     <h3>Parameters:</h3>
@@ -3272,7 +3422,7 @@ win.selection.pos = pos + #data</pre>
         </li>
         <li><span class="parameter">...</span>
             <span class="types"><span class="type">...</span></span>
-         the remaining paramters are passed on to the handler
+         the remaining parameters are passed on to the handler
         </li>
     </ul>
 
@@ -3286,8 +3436,7 @@ win.selection.pos = pos + #data</pre>
     <strong>events.subscribe(event, handler[, index])</strong>
     </dt>
     <dd>
-    Subscribe to an event. </p>
-
+    Subscribe to an event.
 <p> Register an event handler.
 
 
@@ -3325,8 +3474,7 @@ win.selection.pos = pos + #data</pre>
     <strong>events.unsubscribe(event, handler)</strong>
     </dt>
     <dd>
-    Unsubscribe from an event. </p>
-
+    Unsubscribe from an event.
 <p> Remove a registered event handler.
 
 
@@ -3360,7 +3508,7 @@ win.selection.pos = pos + #data</pre>
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2017-07-23 21:15:28 </i>
+<i style="float:right;">Last updated 2023-06-06 14:44:23 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
